@@ -4,10 +4,10 @@ import { json } from 'stream/consumers';
 
 const jsonData = require('C:/Users/ryanr/Desktop/stuff/brightarrow/automation/ParentHub Regs/datetime.json');
 
-const user = '';
-const pass = '';
-const userDesktop = '';
-const passDesktop = '';
+const user = process.env.ACCT_LOGIN;
+const pass = process.env.ACCT_PASS;
+const userDesktop = process.env.USER_DESKTOP;
+const passDesktop = process.env.PASS_DESKTOP;
 
 
 

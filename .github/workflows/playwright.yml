@@ -5,6 +5,8 @@ on:
 env:
   ACCT_LOGIN: ${{ secrets.USERNAME }}
   ACCT_PASS: ${{ secrets.PASSWORD }}
+  USER_DESKTOP: ${{ secrets.USER_DESKTOP }}
+  PASS_DESKTOP: ${{ secrets.PASS_DESKTOP }}
 
 
 jobs:
