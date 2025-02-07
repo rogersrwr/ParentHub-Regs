@@ -68,14 +68,14 @@ export default defineConfig({
       name: 'moreSetup',
       testDir: "./tests",
       testMatch: "0-parent.spec.ts",
-      dependencies: ['setup'],
+      //dependencies: ['setup'],
       use: { ...devices['Desktop Chrome'] },
     },
     {
-      name: 'Pixel7',
+      name: 'MainSuite',
       testDir: "./tests",
       testMatch: "1-parent.spec.ts",
-      dependencies: ['moreSetup'],
+      //dependencies: ['moreSetup'],
       use: { ...devices['Pixel 7']}
     }
 

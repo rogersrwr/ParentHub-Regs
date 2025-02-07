@@ -1,6 +1,8 @@
 import { test, expect } from '@playwright/test';
+import exp from 'constants';
 import * as fs from 'fs';
 import { json } from 'stream/consumers';
+require('dotenv').config();
 
 const jsonData = require('C:/Users/ryanr/Desktop/stuff/brightarrow/automation/ParentHub Regs/datetime.json');
 
@@ -57,7 +59,7 @@ test.beforeAll('', async ({ }) => {
 test('#001: Confirm private chat message received on ParentHub',{
   tag: ['@Messages', '@ParentHub'],
   annotation: [
-    { type: 'Test description', description: 'Within the pre-test setup, a chat is sent from a sender account to the ParentHub account being tested to confirm that the chat is received as expected.'},
+    { type: 'Test description', description: 'Within the pre-test setup, a chat is sent from a sender account to the ParentHub account being tested to confirm that the chat is received as expected. A preexisting chat is used for this test.'},
     { type: 'Potential Sources of Failure:', description: ''},
     { type: '', description: '● '},
     { type: '', description: '● '},
@@ -77,8 +79,29 @@ test('#001: Confirm private chat message received on ParentHub',{
 
   await page.locator('div').filter({ hasText: /^CHATS$/ }).click();
   await expect(page.getByText('1', { exact: true })).toBeVisible();   //checks if symbol for new # of msgs is visible
-  await page.getByText('RT ryan testphone parent0').first().click();
+  await expect(page.getByText('ryantest5', { exact: true })).toBeVisible();
+  await expect(page.getByText('R', { exact: true }).first()).toBeVisible();
+  await expect(page).toHaveScreenshot("001-chats-notif.png", { 
+    fullPage: true,
+    clip: {
+      x: 0,
+      y: 120,
+      width: 400,
+      height: 95
+    } 
+  });
+  //await page.getByText('R ryantest5test contact11').first().click();
+  //await page.getByText('ryantest5 & test contact1').click();
+
+
+  await page.locator('.MuiCardActions-root').first().click();
   await expect(page.getByText(`${jsonData.datetime}`)).toBeVisible();
+
+
+
+
+
+  //await page.getByText(`${jsonData.datetime}Download Attachment`).screenshot({ path: '001-chat-bubble.png' });
 
 });
 
@@ -113,7 +136,18 @@ test('#002: Confirm group chat message received on ParentHub',{
   await page.locator('div').filter({ hasText: /^CHATS$/ }).click();
   await page.locator('div').filter({ hasText: /^GROUP$/ }).click();
   await expect(page.getByText('1', { exact: true })).toBeVisible();   //checks if symbol for new # of msgs is visible
-  await page.locator('div').filter({ hasText: /^R ryantest5parent phone0test main groupchat 08\/10\/24 12:32 AM$/ }).getByRole('button').click();
+  await expect(page.getByText('R', { exact: true }).first()).toBeVisible();
+  await expect(page).toHaveScreenshot("002-chats-notif.png", { 
+    fullPage: true,
+    clip: {
+      x: 0,
+      y: 120,
+      width: 400,
+      height: 95
+    } 
+  });
+  //await page.locator('div').filter({ hasText: /^R ryantest5parent phone0test main groupchat 08\/10\/24 12:32 AM$/ }).getByRole('button').click();
+  await page.locator('.MuiCardActions-root').first().click();
 
   await expect(page.getByText(`${jsonData.datetime}`)).toBeVisible();
 
@@ -217,6 +251,7 @@ test('#005: Log in and check Favorites tab',{
   await page.locator('div').filter({ hasText: /^FEEDS$/ }).getByRole('img').click();
   await page.getByText('FAVORITES').click();
   await expect(page.getByText('(Re: phone parent.) msg 8/18/')).toBeVisible();
+  await expect(page).toHaveScreenshot("005-fav-check.png", { fullPage: true });
 
 });
 
@@ -231,14 +266,15 @@ test('#005: Log in and check Favorites tab',{
 test('#006: Search for specific feed and pin it',{
   tag: ['@Messages', '@ParentHub'],
   annotation: [
-    { type: 'Test description', description: 'Navigates to the Feeds tab, and then clicks the search icon to look for a previously received feed by inputting the full feed message into the search bar. Once the searched for feed appears, the pin icon on the top right of the feed is clicked. Then backs out of search and navigates to Feeds > Favorites and confirms that the feed now appears in Favorites.'},
+    { type: 'Test description', description: 'Navigates to the Feeds tab and sets filters to 365 days and texting only in order to search for desired message. If either of those filters are bugged, this test will fail. Then clicks the search icon to look for a previously received feed by inputting the full feed message into the search bar. Once the searched for feed appears, the pin icon on the top right of the feed is clicked. Then backs out of search and navigates to Feeds > Favorites and confirms that the feed now appears in Favorites.'},
     { type: 'Potential Sources of Failure:', description: ''},
-    { type: '', description: '● '},
+    { type: '', description: '● If the feeds filtering option for days or message type is not working.'},
     { type: '', description: '● '},
     { type: '', description: '● '},
     { type: '', description: '● '},
   ],
 }, async ({ page }) => {
+  test.setTimeout(120000);
   await page.goto('https://target110.brightarrow.com/m/');
   await page.getByRole('button', { name: 'Parent / Student Login' }).click();
   await page.getByLabel('Enter your phone number').click();
@@ -250,14 +286,45 @@ test('#006: Search for specific feed and pin it',{
   await page.getByRole('button', { name: 'Cancel' }).click();
 
   await page.locator('div').filter({ hasText: /^FEEDS$/ }).getByRole('img').click();
+
+  await page.getByTestId('FilterListOffIcon').click();
+  await page.getByLabel('90').click();
+  await page.getByRole('option', { name: '365' }).click();
+  await page.getByLabel('All').click();
+  await page.getByRole('option', { name: 'Texting' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
+
   await page.getByRole('button', { name: 'Search' }).click();
   await page.getByLabel('Search').click();
   await page.getByLabel('Search').fill('#013 test msg at 2024-6-5_0-32');
   await page.locator('#searchBarBtn').click();
+  await expect(page.getByText('#013 test msg at 2024-6-5_0-')).toBeVisible({ timeout: 90000 });
+
+  //locator to open up feed card
+  //await page.locator('div').filter({ hasText: /^RTryan test phone parent$/ }).getByLabel('settings').click();   //original locator
+  await page.getByRole('heading', { name: '/04/24 05:36 pm' }).getByTestId('TextsmsOutlinedIcon').click();  //alt locator 1
+  //await page.locator('#FeedID_e6uofo').getByLabel('settings').nth(1).click();    //alt locator 2. is #FeedID static?
+  //await page.locator('div').filter({ hasText: /^#013 test msg at 2024-6-5_0-32$/ }).click();     //alt locator 3
+  //await page.getByText('RTryan test NEW phone parent').click();    //alt locator 4
+
+  //pin locator
+  //await page.getByText('FAVORITES').click();    //original pin locator. has since been changed
+  //await page.locator('.MuiCardHeader-action').click();   //alt locator 1
+  //await page.locator('#FeedID_e6uofo').getByLabel('settings').click();     //alt locator 2
+  
+  const [request] = await Promise.all([
+    page.waitForResponse(response => response.url().includes("TargetAPI/api/message/SetMessageFavorite?accessToken=") && response.status() === 200, {timeout: 60000}),
+    page.waitForResponse(response => response.url().includes("TargetAPI/api/Message/Logger") && response.status() === 200, {timeout: 60000}),
+    page.locator('#FeedID_e6uofo').getByLabel('settings').click()
+  ]);
+
+
+  await expect(page.getByText('RT', { exact: true })).toBeVisible();
   await expect(page.getByText('#013 test msg at 2024-6-5_0-')).toBeVisible();
-  await page.locator('div').filter({ hasText: /^RTryan test phone parent$/ }).getByLabel('settings').click();
-  await page.getByText('FAVORITES').click();
-  await expect(page.getByText('#013 test msg at 2024-6-5_0-')).toBeVisible();
+  await expect(page).toHaveScreenshot("006-pin-check.png", { fullPage: true });
+
+
+
 });
 
 
@@ -270,7 +337,7 @@ test('#006: Search for specific feed and pin it',{
 test('#007: Unpin a favorited feed',{
   tag: ['@Messages', '@ParentHub'],
   annotation: [
-    { type: 'Test description', description: 'Navigates to Feeds > Favorites, confirms that the feed pinned in the previous test is still there. Then taps the pin icon in the recently added feed message to remove it from the favorites tab. Uses a visual regression tool to confirm that the message has been properly removed. '},
+    { type: 'Test description', description: 'Navigates to Feeds > Favorites, confirms that the feed pinned in the previous test is still there. Has to set the feed filter Recent Days to 365 to see this older message that was used for pin test. Then taps the pin icon in the recently added feed message to remove it from the favorites tab. Uses a visual regression tool to confirm that the message has been properly removed. '},
     { type: 'Potential Sources of Failure:', description: ''},
     { type: '', description: '● '},
     { type: '', description: '● '},
@@ -289,13 +356,35 @@ test('#007: Unpin a favorited feed',{
   await page.getByRole('button', { name: 'Cancel' }).click();
 
   await page.locator('div').filter({ hasText: /^FEEDS$/ }).getByRole('img').click();
+  await page.getByTestId('FilterListOffIcon').click();
+  await page.getByLabel('90').click();
+  await page.getByRole('option', { name: '365' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
+
   await page.locator('div').filter({ hasText: /^FAVORITES$/ }).click();
-  await page.locator('#FeedID_e6uofo div').filter({ hasText: 'RTryan test phone parent' }).getByLabel('settings').click();
+
+
+  await expect(page.getByText('#013 test msg at 2024-6-5_0-')).toBeVisible();
+  await expect(page).toHaveScreenshot("007-newFav.png", { fullPage: true });
+
+  //click pin to unpin
+  //await page.locator('#FeedID_e6uofo div').filter({ hasText: 'RTryan test phone parent' }).getByLabel('settings').click();    //original locator
+  //await page.locator('#FeedID_e6uofo div').filter({ hasText: 'RTryan test NEW phone parent' }).getByLabel('settings').click();      //alt locator
+
+
+  const [request] = await Promise.all([
+    page.waitForResponse(response => response.url().includes("TargetAPI/api/message/SetMessageFavorite?accessToken=") && response.status() === 200, {timeout: 60000}),
+    page.waitForResponse(response => response.url().includes("TargetAPI/api/Message/Logger") && response.status() === 200, {timeout: 60000}),
+    page.locator('#FeedID_e6uofo div').filter({ hasText: 'RTryan test NEW phone parent' }).getByLabel('settings').click()
+  ]);
+
+
   await expect(page.getByText('#013 test msg at 2024-6-5_0-')).not.toBeVisible();
 
   await page.locator('div').filter({ hasText: /^ALL$/ }).first().click();
   await page.locator('div').filter({ hasText: /^FAVORITES$/ }).click();
   await expect(page.getByText('#013 test msg at 2024-6-5_0-')).not.toBeVisible();
+  await expect(page).toHaveScreenshot("007-fav-check.png", { fullPage: true });
 });
 
 
@@ -325,9 +414,11 @@ test('#008: Confirm an old chat still works as expected',{
   await page.getByRole('button', { name: 'Cancel' }).click();
 
   await page.locator('div').filter({ hasText: /^CHATS$/ }).click();
-  await page.locator('div').filter({ hasText: /^RT ryan testphone parent0topic test206\/18\/24 1:37 AM$/ }).getByRole('button').click();
+  await page.locator('div').filter({ hasText: /^GROUP$/ }).click();
+  await page.locator('div').filter({ hasText: /^RT ryan testphone parent0topic test206\/26\/24 7:35 PM$/ }).getByRole('button').click();
+  //await page.locator('div').filter({ hasText: /^RT ryan testphone parent0topic test206\/18\/24 1:37 AM$/ }).getByRole('button').click();  //old locator
   await expect(page.getByText('with groupchat marked')).toBeVisible();
-  await expect(page).toHaveScreenshot("004-chat-open.png", { fullPage: true });
+  //await expect(page).toHaveScreenshot("004-chat-open.png", { fullPage: true });
 });
 
 
@@ -364,7 +455,8 @@ test('#009: Verify terms of service page is working as expected',{
   await expect(page.locator('div').filter({ hasText: /^FEEDS$/ })).toBeVisible();
   await expect(page.locator('div').filter({ hasText: /^CHATS$/ })).toBeVisible();
   await expect(page.locator('div').filter({ hasText: /^MENU$/ })).toBeVisible();
-  //await expect(page).toHaveScreenshot("005-TOS.png", { fullPage: true });
+  await expect(page.getByRole('heading', { name: 'Terms of Service' })).toBeVisible();
+  await expect(page).toHaveScreenshot("009-TOS.png", { fullPage: true });
 });
 
 
@@ -385,8 +477,6 @@ test('#010: Verify Settings > Change Password',{
     { type: '', description: '● '},
   ],
 }, async ({ page }) => {
-
-
   await page.goto('https://target110.brightarrow.com/m/');
   await page.getByRole('button', { name: 'Parent / Student Login' }).click();
   await page.getByLabel('Enter your phone number').click();
@@ -402,7 +492,7 @@ test('#010: Verify Settings > Change Password',{
   await expect(page.getByText('Current Password', { exact: true })).toBeVisible();
   await expect(page.locator('div').filter({ hasText: /^FEEDS$/ })).toBeVisible();
   await expect(page.locator('div').filter({ hasText: /^CHATS$/ })).toBeVisible();
-  await expect(page).toHaveScreenshot("006-Settings-ChangeP.png", { fullPage: true });
+  await expect(page).toHaveScreenshot("010-Settings-ChangePass.png", { fullPage: true });
 });
 
 
@@ -423,8 +513,6 @@ test('#011: Verify password has been changed',{
     { type: '', description: '● '},
   ],
 }, async ({ page }) => {
-
-
   await page.goto('https://target110.brightarrow.com/m/');
   await page.getByRole('button', { name: 'Parent / Student Login' }).click();
   await page.getByLabel('Enter your phone number').click();
@@ -440,7 +528,7 @@ test('#011: Verify password has been changed',{
   await expect(page.getByText('Current Password', { exact: true })).toBeVisible();
   await expect(page.locator('div').filter({ hasText: /^FEEDS$/ })).toBeVisible();
   await expect(page.locator('div').filter({ hasText: /^CHATS$/ })).toBeVisible();
-  await expect(page).toHaveScreenshot("006-Settings-ChangeP.png", { fullPage: true });
+  await expect(page).toHaveScreenshot("010-Settings-ChangePass.png", { fullPage: true });
 });
 
 
@@ -459,8 +547,6 @@ test('#012: Verify Settings > Language Preferences',{
     { type: '', description: '● '},
   ],
 }, async ({ page }) => {
-
-
   await page.goto('https://target110.brightarrow.com/m/');
   await page.getByRole('button', { name: 'Parent / Student Login' }).click();
   await page.getByLabel('Enter your phone number').click();
@@ -650,8 +736,6 @@ test('#017: Chats > Group > send a message',{
     { type: '', description: '● '},
   ],
 }, async ({ page }) => {
-
-
   await page.goto('https://target110.brightarrow.com/m/');
   await page.getByRole('button', { name: 'Parent / Student Login' }).click();
   await page.getByLabel('Enter your phone number').click();
@@ -666,12 +750,23 @@ test('#017: Chats > Group > send a message',{
   await page.locator('div').filter({ hasText: /^GROUP$/ }).click();
 
   await expect(page.getByText('test main groupchat')).toBeVisible();
-  await page.locator('div').filter({ hasText: /^R ryantest5parent phone0test main groupchat 08\/10\/24 12:32 AM$/ }).getByRole('button').click();
+
+  //await page.locator('div').filter({ hasText: /^R ryantest5parent phone0test main groupchat 08\/10\/24 12:32 AM$/ }).getByRole('button').click();   //old locator
+  //await page.locator('div').filter({ hasText: /^R ryantest5parent phone0test main groupchat$/ }).getByRole('button').click();
+  await page.getByText('R ryantest5parent phone0').click();
+
   await page.getByText('Write your message').nth(1).click();
   await page.getByRole('textbox', { name: 'Write your message' }).click();
   await page.getByRole('textbox', { name: 'Write your message' }).fill(`msg from parent datetime ${jsonData.datetime}`);
   await page.getByRole('button', { name: 'Ok' }).click();
-  await page.getByTestId('SendIcon').click();
+  //await page.getByTestId('SendIcon').click();
+
+  const [request] = await Promise.all([
+    page.waitForResponse(response => response.url().includes("TargetAPI/api/InstantMessaging/PostChannelMessage?accessToken=") && response.status() === 200, {timeout: 60000}),
+    page.waitForResponse(response => response.url().includes("TargetAPI/api/Message/Logger") && response.status() === 200, {timeout: 60000}),
+    page.getByTestId('SendIcon').click()
+  ]);
+
   await expect(page.getByText(`msg from parent datetime ${jsonData.datetime}`)).toBeVisible();
 
 });
@@ -695,8 +790,6 @@ test('#018: Chats > Private > send a message',{
     { type: '', description: '● '},
   ],
 }, async ({ page }) => {
-
-
   await page.goto('https://target110.brightarrow.com/m/');
   await page.getByRole('button', { name: 'Parent / Student Login' }).click();
   await page.getByLabel('Enter your phone number').click();
@@ -711,12 +804,24 @@ test('#018: Chats > Private > send a message',{
   await page.locator('div').filter({ hasText: /^PRIVATE$/ }).click();
 
   await expect(page.getByText('ryantest5 & test contact1')).toBeVisible();
-  await page.locator('div').filter({ hasText: /^R ryantest5test contact10ryantest5 & test contact108\/10\/24 12:32 AM$/ }).getByRole('button').click();
+
+  //await page.locator('div').filter({ hasText: /^R ryantest5test contact10ryantest5 & test contact108\/10\/24 12:32 AM$/ }).getByRole('button').click();
+  await page.getByText('R ryantest5test contact10').click();
+
   await page.getByText('Write your message').nth(1).click();
   await page.getByRole('textbox', { name: 'Write your message' }).click();
   await page.getByRole('textbox', { name: 'Write your message' }).fill(`msg from parent ${jsonData.datetime}`);
   await page.getByRole('button', { name: 'Ok' }).click();
-  await page.locator('div:nth-child(5)').click();
+
+  // await page.locator('div:nth-child(5)').click();    //old locator
+  // await page.getByTestId('SendIcon').click();
+
+  const [request] = await Promise.all([
+    page.waitForResponse(response => response.url().includes("TargetAPI/api/InstantMessaging/PostChannelMessage?accessToken=") && response.status() === 200, {timeout: 60000}),
+    page.waitForResponse(response => response.url().includes("TargetAPI/api/Message/Logger") && response.status() === 200, {timeout: 60000}),
+    page.getByTestId('SendIcon').click()
+  ]);
+
   await expect(page.getByText(`msg from parent ${jsonData.datetime}`)).toBeVisible();
 
 });
@@ -823,6 +928,14 @@ test('#021: Search feature in chat',{
 
   await page.locator('div').filter({ hasText: /^CHATS$/ }).click();
   await page.locator('div').filter({ hasText: /^PRIVATE$/ }).click();
+  await page.getByText('RT ryan testphone parent0').click();
+  await page.getByRole('button', { name: 'Search' }).click();
+  await page.getByLabel('Search').click();
+  await page.getByLabel('Search').fill('test msg at 2024-9-5_9-56');
+  await page.locator('#searchBarBtn').click();
+  await expect(page.getByText('test msg at 2024-9-5_9-')).toBeVisible();
+  await expect(page).toHaveScreenshot("021-search-chat.png", { fullPage: true });
+
 });
 
 

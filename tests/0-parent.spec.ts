@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import * as fs from 'fs';
 import { json } from 'stream/consumers';
+require('dotenv').config();
 
 const jsonData = require('C:/Users/ryanr/Desktop/stuff/brightarrow/automation/ParentHub Regs/datetime.json');
 
@@ -56,10 +57,10 @@ test.beforeAll('', async ({ }) => {
 
 
 
-test('#000-1: Send a private chat message from BrightArrow teacher desktop',{
+test('#000-1: Send a private chat message from BrightView teacher desktop',{
   tag: ['@Messages', '@ParentHub'],
   annotation: [
-    { type: 'Test description', description: ''},
+    { type: 'Test description', description: '[PRE-TEST] Goes to BrightView (target110.brightarrow.com/r/), logs into a sender account, clicks Active BrightChats, and sends a message to ParentHub account.'},
     { type: 'Potential Sources of Failure:', description: ''},
     { type: '', description: '● '},
     { type: '', description: '● '},
@@ -91,6 +92,7 @@ test('#000-1: Send a private chat message from BrightArrow teacher desktop',{
   await page.getByRole('button', { name: 'Send Message' }).click();
   await expect(page.getByText(`chat ${jsonData.datetime}`)).toBeVisible();
 
+  
 });
 
 
@@ -101,7 +103,7 @@ test('#000-1: Send a private chat message from BrightArrow teacher desktop',{
 test('#000-2: Send a groupchat message from BrightView teacher desktop',{
   tag: ['@Messages', '@ParentHub'],
   annotation: [
-    { type: 'Test description', description: ''},
+    { type: 'Test description', description: '[PRE-TEST] Logs into BrightView sender account, goes to Active BrightChats, selects group chat, and sends a message.'},
     { type: 'Potential Sources of Failure:', description: ''},
     { type: '', description: '● '},
     { type: '', description: '● '},
@@ -139,10 +141,10 @@ test('#000-2: Send a groupchat message from BrightView teacher desktop',{
 
 
 
-test('#000-3: Send a feed message from BrightArrow teacher desktop. informational not urgent, texting only',{
+test('#000-3: Send a feed message from BrightView teacher desktop. informational not urgent, texting only',{
 tag: ['@Messages', '@ParentHub'],
 annotation: [
-  { type: 'Test description', description: ''},
+  { type: 'Test description', description: '[PRE-TEST] Logs into BrightView sender account, goes to My Lists, selects list named “a parent”. Clicks edit message from List Details page,  goes to texting tabs, changes message contents to have time and date of current test run, and sends message. '},
   { type: 'Potential Sources of Failure:', description: ''},
   { type: '', description: '● '},
   { type: '', description: '● '},
@@ -186,7 +188,7 @@ await expect(page.getByText('Welcome, Ryantest5')).toBeVisible();
 
 
 
-test('#000-4: Send another feed message from BrightArrow teacher desktop. mark as urgent in app, texting only',{
+test('#000-4: Send another feed message from BrightView teacher desktop. mark as urgent in app, texting only',{
 tag: ['@Messages', '@ParentHub'],
 annotation: [
   { type: 'Test description', description: ''},
@@ -224,7 +226,7 @@ await page.getByRole('button', { name: 'ryantest5' }).click();
 await page.getByRole('link', { name: 'a parent' }).click();
 await page.locator('div').filter({ hasText: 'Edit Message' }).nth(3).click();
 await page.getByLabel('Choose date').click();
-await page.getByRole('gridcell', { name: `${jsonData.tDay}` }).click();
+await page.getByRole('gridcell', { name: `${jsonData.tDay}`, exact: true }).click();
 
 await page.getByLabel(`${x} hours`, { exact: true }).click();
 
