@@ -4,7 +4,8 @@ import * as fs from 'fs';
 import { json } from 'stream/consumers';
 require('dotenv').config();
 
-const jsonData = require('C:/Users/ryanr/Desktop/stuff/brightarrow/automation/ParentHub Regs/datetime.json');
+const jsonData = require('D:/a/ParentHub-Regs/ParentHub-Regs/datetime.json');
+
 
 const user = process.env.ACCT_LOGIN;
 const pass = process.env.ACCT_PASS;
