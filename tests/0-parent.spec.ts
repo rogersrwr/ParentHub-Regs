@@ -226,7 +226,13 @@ await page.getByRole('button', { name: 'ryantest5' }).click();
 await page.getByRole('link', { name: 'a parent' }).click();
 await page.locator('div').filter({ hasText: 'Edit Message' }).nth(3).click();
 await page.getByLabel('Choose date').click();
-await page.getByRole('gridcell', { name: `${jsonData.tDay}`, exact: true }).click();
+//await page.getByRole('gridcell', { name: `${jsonData.tDay}`, exact: true }).click();
+
+if (jsonData.tDay < 10){
+  await page.getByRole('gridcell', { name: `${jsonData.tDay}`, exact: true }).click();
+} else {
+  await page.getByRole('gridcell', { name: `${jsonData.tDay}`}).click();
+}
 
 await page.getByLabel(`${x} hours`, { exact: true }).click();
 
