@@ -132,7 +132,7 @@ test('#002: Confirm group chat message received on ParentHub',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
   await page.locator('div').filter({ hasText: /^CHATS$/ }).click();
   await page.locator('div').filter({ hasText: /^GROUP$/ }).click();
@@ -182,7 +182,7 @@ test('#003: Confirm feed message received on ParentHub',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
   await page.locator('div').filter({ hasText: /^FEEDS$/ }).click();
   await expect(page.getByText(`feed ${jsonData.datetime} p reg tests`)).toBeVisible();
@@ -215,7 +215,7 @@ test('#004: Confirm *Urgent* feed message received on ParentHub',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
   await page.locator('div').filter({ hasText: /^FEEDS$/ }).click();
   await expect(page.getByText(`feed ${jsonData.datetime}`)).toBeVisible();
@@ -248,7 +248,7 @@ test('#005: Log in and check Favorites tab',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
   await page.locator('div').filter({ hasText: /^FEEDS$/ }).getByRole('img').click();
   await page.getByText('FAVORITES').click();
@@ -298,8 +298,7 @@ test('#006: Search for specific feed and pin it',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
-
+  await page.getByRole('button', { name: 'OK' }).click();
   await page.locator('div').filter({ hasText: /^FEEDS$/ }).getByRole('img').click();
 
   await page.getByTestId('FilterListOffIcon').click();
@@ -376,7 +375,7 @@ test('#007: Unpin a favorited feed',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
   await page.locator('div').filter({ hasText: /^FEEDS$/ }).getByRole('img').click();
   await page.getByTestId('FilterListOffIcon').click();
@@ -441,7 +440,7 @@ test('#008: Confirm an old chat still works as expected',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
   await page.locator('div').filter({ hasText: /^CHATS$/ }).click();
   await page.locator('div').filter({ hasText: /^GROUP$/ }).click();
@@ -476,7 +475,7 @@ test('#009: Verify terms of service page is working as expected',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
   await page.getByRole('button', { name: 'Terms of Service' }).click();
   await expect(page.getByRole('heading', { name: 'Terms of Service' })).toBeVisible();
@@ -515,7 +514,7 @@ test('#010: Verify Settings > Change Password',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
   await page.getByRole('button', { name: 'Settings' }).click();
   await page.getByRole('button', { name: 'Change Password' }).click();
@@ -551,7 +550,7 @@ test('#011: Verify password has been changed',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
   await page.getByRole('button', { name: 'Settings' }).click();
   await page.getByRole('button', { name: 'Change Password' }).click();
@@ -585,7 +584,7 @@ test('#012: Verify Settings > Language Preferences',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
 
   await page.getByRole('button', { name: 'Settings' }).click();
@@ -621,7 +620,7 @@ test('#013: Settings > Do Not Disturb > Until further notice',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
   await page.getByRole('button', { name: 'Settings' }).click();
   await page.getByRole('button', { name: 'Do Not Disturb' }).click();
@@ -659,7 +658,7 @@ test('#014: Settings > Do Not Disturb > Do not disturb me at these times',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
   await page.getByRole('button', { name: 'Settings' }).click();
   await page.getByRole('button', { name: 'Do Not Disturb' }).click();
@@ -697,7 +696,7 @@ test('#015: Settings > Do Not Disturb > Always notify me',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
   await page.getByRole('button', { name: 'Settings' }).click();
   await page.getByRole('button', { name: 'Do Not Disturb' }).click();
@@ -737,7 +736,7 @@ test('#016: Visually verify Settings > Delete Account',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
   await page.getByRole('button', { name: 'Settings' }).click();
   await page.getByRole('button', { name: 'Delete Account' }).click();
@@ -774,7 +773,7 @@ test('#017: Chats > Group > send a message',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
   await page.locator('div').filter({ hasText: /^CHATS$/ }).click();
   await page.locator('div').filter({ hasText: /^GROUP$/ }).click();
@@ -828,7 +827,7 @@ test('#018: Chats > Private > send a message',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
   await page.locator('div').filter({ hasText: /^CHATS$/ }).click();
   await page.locator('div').filter({ hasText: /^PRIVATE$/ }).click();
@@ -885,7 +884,7 @@ test('#019: Feed > Reply Privately',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
   await page.locator('div').filter({ hasText: /^FEEDS$/ }).click();
   await page.getByText(`feed ${jsonData.datetime} p reg tests`).click();
@@ -920,7 +919,7 @@ test('#020: Feed > Reply To Group',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
   await page.locator('div').filter({ hasText: /^FEEDS$/ }).click();
   await page.locator('div').filter({ hasText: /^ALERTS$/ }).click();
@@ -954,7 +953,7 @@ test('#021: Search feature in chat',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
   await page.locator('div').filter({ hasText: /^CHATS$/ }).click();
   await page.locator('div').filter({ hasText: /^PRIVATE$/ }).click();
@@ -998,7 +997,7 @@ test('#022: Disable chat',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
   await page.locator('div').filter({ hasText: /^CHATS$/ }).click();
   await page.locator('div').filter({ hasText: /^PRIVATE$/ }).click();
@@ -1029,7 +1028,7 @@ test('#023: Enable chat',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
   await page.locator('div').filter({ hasText: /^CHATS$/ }).click();
   await page.locator('div').filter({ hasText: /^PRIVATE$/ }).click();
@@ -1061,7 +1060,7 @@ test('#024: Send an attachment in chat',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
   await page.locator('div').filter({ hasText: /^CHATS$/ }).click();
   await page.locator('div').filter({ hasText: /^PRIVATE$/ }).click();
@@ -1097,7 +1096,7 @@ test('#025: Send an empty message to get pop up',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
   await page.locator('div').filter({ hasText: /^CHATS$/ }).click();
   await page.locator('div').filter({ hasText: /^PRIVATE$/ }).click();
@@ -1136,7 +1135,7 @@ test('#026: Help and support',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
 });
 
@@ -1167,7 +1166,7 @@ test('#027: Help and support > Link 1 (email support)',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
 });
 
@@ -1197,7 +1196,7 @@ test('#028: Help and support > Link 2 (get help)',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
 });
 
@@ -1226,7 +1225,7 @@ test('#029: Help and support > Link 3 (update)',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
 });
 
@@ -1256,7 +1255,7 @@ test('#030: Logout button, and then log back in',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
 });
 
@@ -1287,7 +1286,7 @@ test('#031: Feeds Filter Types. Recent Days, 1. Message Types, All.',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
 });
 
@@ -1317,7 +1316,7 @@ test('#032: Feeds Filter Types, reset button',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
 });
 
@@ -1347,7 +1346,7 @@ test('#033: Pin a feed message from expanded view',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
 });
 
@@ -1378,7 +1377,7 @@ test('#034: Unpin a feed message from expanded view',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
 });
 
@@ -1412,7 +1411,7 @@ test('#035: Search for a chat conversation in Chats > All',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
 });
 
@@ -1442,7 +1441,7 @@ test('#036: Search for a chat message within a conversation',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
 });
 
@@ -1472,7 +1471,7 @@ test('#037: Search for a chat conversation in Chats > Group',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
 });
 
@@ -1504,7 +1503,7 @@ test('#038: Search for a chat conversation in Chats > Private',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
 });
 
@@ -1665,7 +1664,7 @@ test('#044: Staff Directory visual check',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
 
   await page.getByRole('button', { name: 'Staff Directory' }).click();
@@ -1699,7 +1698,7 @@ test('#045: Staff Directory, favorite a directory contact',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
 
   await page.getByRole('button', { name: 'Staff Directory' }).click();
@@ -1740,7 +1739,7 @@ test('#046: Staff Directory, unfavorite a directory contact',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
   await page.getByRole('button', { name: 'Staff Directory' }).click();
   await expect(page.getByRole('heading', { name: 'Staff Directory' })).toBeVisible();
@@ -1784,7 +1783,7 @@ test('#047: Staff Directory > Filter Types > Schools > West',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
 
   await page.getByRole('button', { name: 'Staff Directory' }).click();
@@ -1823,7 +1822,7 @@ test('#048: School directory search function',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
   await page.getByRole('button', { name: 'Staff Directory' }).click();
   await expect(page.getByRole('heading', { name: 'Staff Directory' })).toBeVisible();
@@ -1862,7 +1861,7 @@ test('#049: Filter within Feeds > Favorties. Verifies favorited feed does not ap
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
   await page.locator('div').filter({ hasText: /^FEEDS$/ }).click();
   await page.locator('div').filter({ hasText: /^FAVORITES$/ }).click();
@@ -1896,8 +1895,7 @@ test('#050: Search for a feed message within Feeds > Favorites',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
-
+  await page.getByRole('button', { name: 'OK' }).click();
 });
 
 
@@ -1926,7 +1924,7 @@ test('#051: Feeds refresh icon > “Refresh”',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
 });
 
@@ -1955,7 +1953,7 @@ test('#052: Feeds reload icon > “Reload All”',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
 });
 
@@ -1986,7 +1984,7 @@ test('#053: Feeds reload icon > Contacts refresh icon',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
 });
 
@@ -2014,7 +2012,7 @@ test('#054: Feeds > Filter types > Message Types > Chat Invite Received',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
 });
 
@@ -2044,7 +2042,7 @@ test('#055: Feeds > Filter types > Message Types > Email',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
 });
 
@@ -2072,7 +2070,7 @@ test('#056: Feeds > Filter types > Message Types > Texting',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
 });
 
@@ -2101,7 +2099,7 @@ test('#057: Feeds > Filter types > Message Types > Voice',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
 });
 
@@ -2131,7 +2129,7 @@ test('#058: Feeds Filter Types. Recent Days, 7. Message Types, All.',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
 });
 
@@ -2158,8 +2156,7 @@ test('#059: Feeds Filter Types. Recent Days, 30. Message Types, All.',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
-
+  await page.getByRole('button', { name: 'OK' }).click();
 });
 
 
@@ -2186,7 +2183,7 @@ test('#060: Feeds Filter Types. Recent Days, 60. Message Types, All.',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
 });
 
@@ -2214,7 +2211,7 @@ test('#061: Feeds Filter Types. Recent Days, 180. Message Types, All.',{
   await page.getByLabel('Enter your password').fill(`${pass}`);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'OK' }).click();
-  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
 });
 
